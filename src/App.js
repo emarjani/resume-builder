@@ -15,11 +15,10 @@ class App extends Component {
 
     this.state = {
       general: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        address: ""
+        name: "John Doe",
+        email: "johndoe@example.com",
+        phone: "0813-2093-4923",
+        address: "127 Avenue, New Jersey"
       },
 
       //id for both school and work
@@ -38,6 +37,7 @@ class App extends Component {
       work_form: {
         company: "",
         title: "",
+        duties: "",
         date: ""
       },
 
@@ -60,17 +60,15 @@ class App extends Component {
     
   }
 
-  //search school and work for id. if matches, delete that entry.
   //sesction is either education or work
   deleteEntry = (id, section) => {
     this.setState({[section]: this.state[section].filter(i => i.id !== id)});
   };
 
-  //needs to select correct form. grab object. fill fields with respective thing. edit object
-  //NOT delete and create a new one (id shud be the same)
-  editEntry = () => {
-
-  };
+  //take in id and changed info, and array, change accordingly
+  editEntry = (value, id, array) => {
+    
+  }
 
   //for school
   createSchoolEntry = (school, title, desc, date, grade, id=this.state.id) => {
@@ -87,13 +85,13 @@ class App extends Component {
   }
 
 
-  // education, and work???/
+  // education, and work???// need to differentiate between save / create
   onSubmitForm = (e) => {
     e.preventDefault();
 
     const formID = e.target.id;
-    console.log(formID);
     if (formID == "education-form"){
+      //check if 
       const { institution, title, description, date, grade } = this.state.education_form;
       let entry = this.createSchoolEntry(institution, title, description, date, grade);
       this.setState({education: this.state.education.concat(entry)});
@@ -107,63 +105,23 @@ class App extends Component {
 
   render(){
     return (
-      // edit cv button here?
+      
       <div className="App">
         <h1>CV Builder</h1>
 
         <General info={this.state.general} change={this.handleChange}/>
 
         <h2>Education</h2>
-        <form id="education-form" onSubmit={this.onSubmitForm}>
-          <label htmlFor="institution">Institution: </label>
-          <input
-          onChange={this.handleChange}
-          value={this.state.education_form.institution}
-          type="text"
-          id="institution"
-          name="education_form"
-          /> 
+        
 
-          <label htmlFor="title">Title: </label>
-          <input
-          onChange={this.handleChange}
-          value={this.state.education_form.title}
-          type="text"
-          id="title"
-          name="education_form"
-          /> 
+        <Education 
+        form = {this.state.education_form}
+        entries={this.state.education}
 
-          <label htmlFor="description">Description: </label>
-          <input
-          onChange={this.handleChange}
-          value={this.state.education_form.description}
-          type="text"
-          id="description"
-          name="education_form"
-          />
-
-          <label htmlFor="date">Date: </label>
-          <input
-          onChange={this.handleChange}
-          value={this.state.education_form.date}
-          type="text"
-          id="date"
-          name="education_form"
-          />
-
-          <label htmlFor="grade">Grade: </label>
-          <input
-          onChange={this.handleChange}
-          value={this.state.education_form.grade}
-          type="text"
-          id="grade"
-          name="education_form"
-          />
-
-          <button type="submit">Save</button>
-        </form>
-
-        <Education entries={this.state.education} destroy={this.deleteEntry}/>
+        change = {this.handleChange}
+        onSubmit = {this.onSubmitForm}
+        destroy={this.deleteEntry}
+        edit={this.editSchoolEntry}/>
 
 
         <h2>Work</h2>
