@@ -12,79 +12,43 @@
 
 #header {
   border: 2px pink solid;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
   /* display: rela */
 }
-
+/* FIX WIDTHS OF INPUT */
 #name-container {
-  /* border: 2px purple solid; */
-  display: flex;
-  width: fit-content;
+  /* position: relative; */
+  /* height: fit-content; */
+  /* border: 1px solid blue; */
 }
 
-#name-container p,
-#contact-info p{
-  /* border: 1px solid; */
-  margin: 0;
-}
-
-#name-container p,
-#name-container input {
+#header input {
+  /* position: absolute; */
+  /* width: 100%; */
+  padding: 1px;
   font-size: 30px;
+  border: none;
+  outline: none;
 }
 
-#contact-info p,
 #contact-info input {
   font-size: 20px;
 }
-
 /* 
 __________________________________________ */
 
 
 
-.dash {
-  /* border: 2px red solid; */
-  margin: 0 2em 0 2em;
-}
-
-
-#header .field-container {
-  position: relative;
-  /* background-color: yellow; */
-}
-
-#header input {
-  /* font-size: 30px; */
-  /* min-width: 10px; */
-  outline: none;
-  position: absolute;
-  top:0;
-  width: 98%;
-  /* height: 98%; */
-  padding: 1px;
-  /* background-color: rgb(221, 159, 159); */
-  display: none;
-  z-index: 2;
-}
-
-#contact-info {
-  /* border: 1px red solid; */
-  /* width: 50%; */
-  display: flex;
-  justify-content: space-between;
-}
-
-#mask {
+/* #mask {
   background-color: rgba(0,0,0,0.1);
   width: 100%;
   height: 100%;
   display: none;
   position: fixed;
   top: 0;
-}
+} */
 
 
 

@@ -30,60 +30,49 @@ class General extends Component {
         return(
             <div id="header">
                 <div id="name-container">
-                    <div className="field-container">
-                        <p onClick={()=>this.toggleInput("name")}>{name}</p>
-                        <input 
-                        onChange={change}
-                        type="text"
-                        id="name"
-                        name="general"
-                        />
-                    </div>
+                    <input 
+                    onChange={ change }
+                    value={ name }
+                    type="text"
+                    id="name"
+                    name="general"
+                    />
                 </div>
 
                 <div id="contact-info">
-                    <div className="field-container">
-                        <p onClick={()=>this.toggleInput("address")}>{address}</p>
-                        <input 
-                        onChange={change}
-                        type="text"
-                        id="address"
-                        name="general"
-                        />
-                    </div>
+                    <input 
+                    onChange={change}
+                    value={address}
+                    type="text"
+                    id="address"
+                    name="general"
+                    />
 
-                    <p className="dash">  -  </p>
+                    <input 
+                    onChange={change}
+                    value={email}
+                    type="text"
+                    id="email"
+                    name="general"
+                    />
 
-                    <div className="field-container">
-                        <p onClick={()=>this.toggleInput("email")}>{email}</p>
-                        <input 
-                        onChange={change}
-                        type="text"
-                        id="email"
-                        name="general"
-                        />
-                    </div>
-
-                    <p className="dash">  -  </p>
-
-                    <div className="field-container">
-                        <p onClick={()=>this.toggleInput("phone")}>{phone}</p>
-                        <input 
-                        onChange={change}
-                        type="text"
-                        id="phone"
-                        name="general"
-                        />  
-                    </div>
+                    
+                    <input 
+                    onChange={change}
+                    value={phone}
+                    type="text"
+                    id="phone"
+                    name="general"
+                    />  
 
                 </div>
 
-                <div id="mask" onClick={()=>this.hideInput()}></div>
+                
+
+                
             </div>
         );
     }
 }
 
 export default General;
-
-//name email phone number

@@ -7,9 +7,9 @@ class Form extends Component {
 
     render(){
 
-
+        //pass in either edit true or edit false. 
         // based on number of fields in this.props.cv.education, add fields
-        const { general, education , work } = this.props.cv;
+        
 
 
         return(    
