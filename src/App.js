@@ -21,12 +21,6 @@ class App extends Component {
         address: "127 Avenue, New Jersey"
       },
 
-      //id for both school and work
-      // id: uniqid()
-
-      //for edit form
-      edit: false,
-
       selected_entry: {
         entry: "",
         section: ""
@@ -35,6 +29,7 @@ class App extends Component {
       //education form
       education_form: {
         id: uniqid(),
+        edit: false,
         institution: "",
         title: "",
         description: "",
@@ -80,15 +75,16 @@ class App extends Component {
     //make copy of the form
     let temp = {...this.state[form_name]};
 
-    // loop through and make each key value blank (except id);
+    // loop through and make each key value blank (except id and edit status);
     for (let key in temp){
-      if (key !== "id") {
+      if (key !== "id" && key !== "edit") {
         temp[key] = "";
       }
     }
     this.setState({[form_name]: temp});
   };
 
+  //can shorten this to one line, using destructuring syntax
   resetID = (form_name) => {
     let temp = {...this.state[form_name]};
     temp["id"] = uniqid();
@@ -98,8 +94,9 @@ class App extends Component {
   //what about selected_entry? ca it accomodate both education nd work?
 
   toggleEdit = (entry, section) => {
+    let form_name = `${section}_form`;
+
     let promise = new Promise((resolve, reject) => {
-      this.setState({edit: true});
       this.setState({selected_entry: {
         entry: entry,
         section: section
@@ -108,7 +105,7 @@ class App extends Component {
     });
 
     promise.then((response) => {
-      this.setState({education_form: {...entry}});
+      this.setState({[form_name]: {...this.state.selected_entry.entry, edit: true}});
     });
   }
 
@@ -116,6 +113,7 @@ class App extends Component {
     e.preventDefault();
     let entry = this.state.selected_entry.entry;
     let section = this.state.selected_entry.section;
+    let form_name = `${section}_form`;
     let index = this.state[section].indexOf(entry);
 
     let promised_array = new Promise((resolve, reject) => {
@@ -128,7 +126,7 @@ class App extends Component {
     promised_array.then((response) => {
       this.resetForm(`education_form`);
       this.resetID(`${section}_form`);
-      this.setState({edit: false});
+      this.setState({[form_name]: {...this.state[form_name], edit: false}});
     })
   };
 
@@ -167,7 +165,6 @@ class App extends Component {
         <Education 
         form = {this.state.education_form}
         entries={this.state.education}
-        edit = {this.state.edit}
 
         change = {this.handleChange}
         onSubmit = {this.onSubmitForm}

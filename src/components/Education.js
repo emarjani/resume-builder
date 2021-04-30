@@ -6,14 +6,13 @@ class Education extends Component {
     }
 
     render(){
-        const { form, entries, edit, change, onSubmit, destroy, toggleEdit, onUpdate } = this.props;
+        const { form, entries, change, onSubmit, destroy, toggleEdit, onUpdate } = this.props;
         //entries are an array of objects
-
         //create or update?
         let formFunction;
         let buttonName;
 
-        if (edit === false) {
+        if (form.edit === false) {
             formFunction = onSubmit;
             buttonName = "Create";
         } else {
