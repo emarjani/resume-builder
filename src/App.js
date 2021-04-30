@@ -6,7 +6,7 @@ import Education from "./components/Education.js"
 import Work from "./components/Work.js"
 
 import uniqid from "uniqid";
-// import Form from "./components/Form.js"
+
 
 class App extends Component {
 
@@ -21,9 +21,10 @@ class App extends Component {
         address: "127 Avenue, New Jersey"
       },
 
-      selected_entry: {
-        entry: "",
-        section: ""
+      //select entries, to be edited. will store this selected entry.
+      selected: {
+        education: "",
+        work: ""
       },
 
       //education form
@@ -91,41 +92,41 @@ class App extends Component {
     this.setState({[form_name]: temp});
   }
 
-  //what about selected_entry? ca it accomodate both education nd work?
-
   toggleEdit = (entry, section) => {
     let form_name = `${section}_form`;
 
     let promise = new Promise((resolve, reject) => {
-      this.setState({selected_entry: {
-        entry: entry,
-        section: section
-      }});
+      this.setState({
+        selected: {...this.state.selected, [section]: entry}
+      });
       resolve(true);
     });
 
     promise.then((response) => {
-      this.setState({[form_name]: {...this.state.selected_entry.entry, edit: true}});
+      //form should be filled with entry information, and the form edit status should be changed to true
+      this.setState({[form_name]: {...this.state.selected[section], edit: true}});
     });
   }
 
   onUpdateForm = (e) => {
     e.preventDefault();
-    let entry = this.state.selected_entry.entry;
-    let section = this.state.selected_entry.section;
+
+    let section = e.target.id.split("-")[0];
+    let entry = this.state.selected[section];
     let form_name = `${section}_form`;
     let index = this.state[section].indexOf(entry);
 
     let promised_array = new Promise((resolve, reject) => {
       let temp = JSON.parse(JSON.stringify(this.state[section]));
-      temp.splice(index, 1, this.state["education_form"]);
+      temp.splice(index, 1, this.state[form_name]);
       let new_array = this.setState({[section]: temp});
       resolve(new_array);
     });
 
     promised_array.then((response) => {
-      this.resetForm(`education_form`);
-      this.resetID(`${section}_form`);
+      //these may not occur in order
+      this.resetForm(form_name);
+      this.resetID(form_name);
       this.setState({[form_name]: {...this.state[form_name], edit: false}});
     })
   };
@@ -183,9 +184,3 @@ class App extends Component {
 }
 
 export default App;
-
-//at somepoint after edit, fields can go UNDEFINED for no reason
-//also, sometimess the object in education array doesnt have the same values as the one in
-//the form being changed
-
-// this.setState({education_form: {id: uniqid()}});
