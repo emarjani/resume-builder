@@ -7,8 +7,7 @@ class Education extends Component {
 
     render(){
         const { form, entries, change, onSubmit, destroy, toggleEdit, onUpdate } = this.props;
-        //entries are an array of objects
-        //create or update?
+
         let formFunction;
         let buttonName;
 
@@ -72,8 +71,6 @@ class Education extends Component {
                     <button type="submit">{buttonName}</button>
                 </form>
                 {entries.map((entry) => {
-                    //why is entry blank?
-                    // console.log(entry);
                     return (
                     <div key={entry.id}>
                         <p>{entry.institution}</p>
@@ -94,7 +91,3 @@ class Education extends Component {
 }
 
 export default Education;
-
-//(school name, title of study, date of study)
-//can have multiple education entered ofc
-//map over educaiton array, output each object into div p tags

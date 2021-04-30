@@ -41,10 +41,11 @@ class App extends Component {
       //work form
       work_form: {
         id: uniqid(),
+        edit: false,
         company: "",
-        title: "",
-        duties: "",
-        date: ""
+        position: "",
+        tasks: "",
+        dateOfWork: ""
       },
 
       //to store entries
@@ -53,8 +54,6 @@ class App extends Component {
     }
   }
 
-  //field should be the name of field of cv
-  //handles general
   handleChange = (e) => {
     const name = e.target.name;
     const field = e.target.id;
@@ -73,7 +72,6 @@ class App extends Component {
 
   //education or work
   resetForm = (form_name) => {
-    //make copy of the form
     let temp = {...this.state[form_name]};
 
     // loop through and make each key value blank (except id and edit status);
@@ -131,25 +129,22 @@ class App extends Component {
     })
   };
 
-
-  // education, and work???// need to differentiate between save / create
   onSubmitForm = (e) => {
     e.preventDefault();
 
-    const formID = e.target.id;
-    if (formID == "education-form"){
+    let section = e.target.id.split("-")[0];
+    let form_name = `${section}_form`;
 
-      let promised_array = new Promise((resolve, reject) => {
-        let entry = this.state.education_form;
-        let array = this.setState({education: this.state.education.concat(entry)});
-        resolve(array);
-      });
+    let promised_array = new Promise((resolve, reject) => {
+      let entry = this.state[form_name];
+      let array = this.setState({[section]: this.state[section].concat(entry)});
+      resolve(array);
+    });
 
-      promised_array.then((response) => {
-        this.resetForm("education_form");
-        this.resetID("education_form");
-      });
-    }
+    promised_array.then((response) => {
+      this.resetForm(form_name);
+      this.resetID(form_name);
+    });
   }
 
   render() {
@@ -162,7 +157,6 @@ class App extends Component {
 
         <h2>Education</h2>
         
-
         <Education 
         form = {this.state.education_form}
         entries={this.state.education}
@@ -174,9 +168,17 @@ class App extends Component {
         onUpdate = {this.onUpdateForm}
         />
 
-
         <h2>Work</h2>
-        <Work />
+        <Work 
+        form= {this.state.work_form}
+        entries= {this.state.work}
+
+        change= {this.handleChange}
+        onSubmit= {this.onSubmitForm}
+        destroy= {this.deleteEntry}
+        toggleEdit= {this.toggleEdit}
+        onUpdate= {this.onUpdateForm}
+        />
       </div>
     );
   }
