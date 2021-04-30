@@ -6,17 +6,26 @@ class Education extends Component {
     }
 
     render(){
-        const { form, entries, change, onSubmit, destroy, edit } = this.props;
+        const { form, entries, edit, change, onSubmit, destroy, toggleEdit, onUpdate } = this.props;
         //entries are an array of objects
+
+        //create or update?
+        let formFunction; 
+
+        if (edit === false) {
+            formFunction = onSubmit
+        } else {
+            formFunction = onUpdate
+        };
 
         return(
             <div>
 
-                <form id="education-form" onSubmit={onSubmit}>
+                <form id="education-form" onSubmit={formFunction}>
                     <label htmlFor="institution">Institution: </label>
                     <input
                     onChange={change}
-                    value={form.institution}
+                    value={form.institution || ""}
                     type="text"
                     id="institution"
                     name="education_form"
@@ -25,7 +34,7 @@ class Education extends Component {
                     <label htmlFor="title">Title: </label>
                     <input
                     onChange={change}
-                    value={form.title}
+                    value={form.title || ""}
                     type="text"
                     id="title"
                     name="education_form"
@@ -34,7 +43,7 @@ class Education extends Component {
                     <label htmlFor="description">Description: </label>
                     <input
                     onChange={change}
-                    value={form.description}
+                    value={form.description || ""}
                     type="text"
                     id="description"
                     name="education_form"
@@ -43,7 +52,7 @@ class Education extends Component {
                     <label htmlFor="date">Date: </label>
                     <input
                     onChange={change}
-                    value={form.date}
+                    value={form.date || ""}
                     type="text"
                     id="date"
                     name="education_form"
@@ -52,7 +61,7 @@ class Education extends Component {
                     <label htmlFor="grade">Grade: </label>
                     <input
                     onChange={change}
-                    value={form.grade}
+                    value={form.grade || ""}
                     type="text"
                     id="grade"
                     name="education_form"
@@ -61,6 +70,8 @@ class Education extends Component {
                     <button type="submit">Save</button>
                 </form>
                 {entries.map((entry) => {
+                    //why is entry blank?
+                    // console.log(entry);
                     return (
                     <div key={entry.id}>
                         <p>{entry.institution}</p>
@@ -69,7 +80,7 @@ class Education extends Component {
                         <p>{entry.date}</p>
                         <p>{entry.grade}</p>
                         <p>{entry.id}</p>
-                        <button onClick={() => edit(entry)}>Edit</button>
+                        <button onClick={() => toggleEdit(entry, "education")}>Edit</button>
                         <button onClick={() => destroy(entry.id, "education")}>Delete</button>
                     </div>)
                 })}
