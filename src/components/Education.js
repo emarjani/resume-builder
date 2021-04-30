@@ -10,12 +10,15 @@ class Education extends Component {
         //entries are an array of objects
 
         //create or update?
-        let formFunction; 
+        let formFunction;
+        let buttonName;
 
         if (edit === false) {
-            formFunction = onSubmit
+            formFunction = onSubmit;
+            buttonName = "Create";
         } else {
-            formFunction = onUpdate
+            formFunction = onUpdate;
+            buttonName = "Update";
         };
 
         return(
@@ -67,7 +70,7 @@ class Education extends Component {
                     name="education_form"
                     />
 
-                    <button type="submit">Save</button>
+                    <button type="submit">{buttonName}</button>
                 </form>
                 {entries.map((entry) => {
                     //why is entry blank?

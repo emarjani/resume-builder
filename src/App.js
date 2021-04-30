@@ -95,47 +95,31 @@ class App extends Component {
     this.setState({[form_name]: temp});
   }
 
-  //MAKE SURE THIS IS UPDATING IN THE RIGHT ORDER. ASYNC 
-  //does it go wrong in toggle edit? or onUpdate?
+  //what about selected_entry? ca it accomodate both education nd work?
 
   toggleEdit = (entry, section) => {
-    this.setState({edit: true});
-
-    //set info of selected entry
-    
-    // console.log(entry);
-    // console.log(section);
-
     let promise = new Promise((resolve, reject) => {
       this.setState({edit: true});
       this.setState({selected_entry: {
         entry: entry,
         section: section
       }});
-      resolve("yes");
+      resolve(true);
     });
 
     promise.then((response) => {
-      console.log(response);
-      console.log(this.state.edit);
-      //make education form have values of entry (check if it binds the two)
       this.setState({education_form: {...entry}});
     });
   }
 
-  //its like onUpdateForm makes education form nil, an only inserts id. 
   onUpdateForm = (e) => {
-    // console.log(this.state.edit);
     e.preventDefault();
     let entry = this.state.selected_entry.entry;
     let section = this.state.selected_entry.section;
-    //find index of object in array. (for splicing later) (maybe move this to toggle edit)
     let index = this.state[section].indexOf(entry);
 
     let promised_array = new Promise((resolve, reject) => {
       let temp = JSON.parse(JSON.stringify(this.state[section]));
-
-      this.setState({education_form: {id: uniqid()}});
       temp.splice(index, 1, this.state["education_form"]);
       let new_array = this.setState({[section]: temp});
       resolve(new_array);
@@ -152,7 +136,6 @@ class App extends Component {
   // education, and work???// need to differentiate between save / create
   onSubmitForm = (e) => {
     e.preventDefault();
-    console.log(this.state.edit);
 
     const formID = e.target.id;
     if (formID == "education-form"){
@@ -207,3 +190,5 @@ export default App;
 //at somepoint after edit, fields can go UNDEFINED for no reason
 //also, sometimess the object in education array doesnt have the same values as the one in
 //the form being changed
+
+// this.setState({education_form: {id: uniqid()}});
