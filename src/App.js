@@ -4,6 +4,7 @@ import React, {Component} from "react"
 import General from "./components/General.js"
 import Education from "./components/Education.js"
 import Work from "./components/Work.js"
+import Skills from "./components/Skills.js"
 
 import uniqid from "uniqid";
 
@@ -17,8 +18,8 @@ class App extends Component {
       general: {
         name: "Jane Doe",
         email: "janedoe@example.com",
-        phone: "0213-2093-4923",
-        address: "127 Avenue, New Jersey"
+        phone: "0813-2093-4923",
+        address: "Jakarta, Indonesia"
       },
 
       //select entries, to be edited. will store this selected entry.
@@ -48,9 +49,15 @@ class App extends Component {
         dateOfWork: ""
       },
 
+      skills_form: {
+        id: uniqid(),
+        skill: ""
+      },
+
       //to store entries
       education: [],
-      work: []
+      work: [],
+      skills: []
     }
   }
 
@@ -62,7 +69,7 @@ class App extends Component {
     this.setState({
       [name]: {...this.state[name], [field]: value}
     });
-    console.log(this.state.education_form);
+    // console.log(this.state.education_form);
   }
 
   //sesction is either education or work
@@ -178,6 +185,16 @@ class App extends Component {
         destroy= {this.deleteEntry}
         toggleEdit= {this.toggleEdit}
         onUpdate= {this.onUpdateForm}
+        />
+
+        <h2>Skills</h2>
+        <Skills
+        form = {this.state.skills_form}
+        entries= {this.state.skills}
+
+        change= {this.handleChange}
+        onSubmit= {this.onSubmitForm}
+        destroy= {this.deleteEntry}
         />
       </div>
     );
