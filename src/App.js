@@ -8,6 +8,14 @@ import Skills from "./components/Skills.js"
 
 import uniqid from "uniqid";
 
+import Preview from "./components/Preview.js"
+import CV from "./components/CV.js"
+
+import ReactDOM from 'react-dom';
+import ReactPDF from '@react-pdf/renderer';
+// education: [],
+//       work: [],
+//       skills: []
 
 class App extends Component {
 
@@ -54,12 +62,64 @@ class App extends Component {
         skill: ""
       },
 
-      //to store entries
-      education: [],
-      work: [],
-      skills: []
+      education: [{
+        id: uniqid(),
+        edit: false,
+        institution: "ABC University",
+        title: "BSc Computer Science",
+        description: "Minor in Cybersecurity",
+        date: "2010-2014",
+        grade: "3.7 GPA"
+      }],
+
+      work: [{
+        id: uniqid(),
+        edit: false,
+        company: "Virtual Company",
+        position: "Junior Software Engineer",
+        tasks: "Designed and establishhed user-friendly websites, including optimized checkout pages, resulting in a 25% increase in user clicks.",
+        dateOfWork: "2015-2019"
+      },
+      {
+        id: uniqid(),
+        edit: false,
+        company: "Web Company ",
+        position: "Web Developer",
+        tasks: "Designed and establishhed user-friendly websites, including optimized checkout pages, resulting in a 25% increase in user clicks.",
+        dateOfWork: "2019-2020"
+      },
+      {
+        id: uniqid(),
+        edit: false,
+        company: "Prestgious Software Company",
+        position: "Senior Software Engineer",
+        tasks: "Designed and establishhed user-friendly websites, including optimized checkout pages, resulting in a 25% increase in user clicks.",
+        dateOfWork: "2020-present"
+      },
+      ],
+      
+      skills: [
+        {id: uniqid(), skill: "HTML/CSS"},{id: uniqid(), skill: "Javascript"},{id: uniqid(), skill: "Ruby on Rails"},
+        {id: uniqid(), skill: "jQuery"},{id: uniqid(), skill: "SQL"},{id: uniqid(), skill: "Wordpress"},
+      
+      ]
     }
   }
+
+  //as soon as component mounted, render pdf view
+  componentDidMount(){
+    ReactDOM.render(
+      <Preview 
+  
+      general = {this.state.general}
+      education_entries = {this.state.education}
+      work_entries = {this.state.work}
+      skills = {this.state.skills}
+  
+      />, document.getElementById('template')
+      );
+  }
+
 
   handleChange = (e) => {
     const name = e.target.name;
@@ -69,10 +129,9 @@ class App extends Component {
     this.setState({
       [name]: {...this.state[name], [field]: value}
     });
-    // console.log(this.state.education_form);
   }
 
-  //sesction is either education or work
+  //sesction is either education or work or skills
   deleteEntry = (id, section) => {
     this.setState({[section]: this.state[section].filter(i => i.id !== id)});
   };
@@ -90,7 +149,6 @@ class App extends Component {
     this.setState({[form_name]: temp});
   };
 
-  //can shorten this to one line, using destructuring syntax
   resetID = (form_name) => {
     let temp = {...this.state[form_name]};
     temp["id"] = uniqid();
@@ -154,49 +212,71 @@ class App extends Component {
     });
   }
 
+  renderPreview = () => {
+    ReactDOM.render(
+        <Preview 
+    
+        general = {this.state.general}
+        education_entries = {this.state.education}
+        work_entries = {this.state.work}
+        skills = {this.state.skills}
+    
+        />, document.getElementById('template')
+    )
+  }
+
   render() {
     return (
       
       <div className="App">
-        <h1>CV Builder</h1>
-
-        <General info={this.state.general} change={this.handleChange}/>
-
-        <h2>Education</h2>
         
-        <Education 
-        form = {this.state.education_form}
-        entries={this.state.education}
+        <div id="content">
+          
+          <div id="resume-maker">
+            <h1>CV Builder</h1>
+            <General info={this.state.general} change={this.handleChange}/>
 
-        change = {this.handleChange}
-        onSubmit = {this.onSubmitForm}
-        destroy={this.deleteEntry}
-        toggleEdit = {this.toggleEdit}
-        onUpdate = {this.onUpdateForm}
-        />
+            <Education 
+            form = {this.state.education_form}
+            entries={this.state.education}
 
-        <h2>Work</h2>
-        <Work 
-        form= {this.state.work_form}
-        entries= {this.state.work}
+            change = {this.handleChange}
+            onSubmit = {this.onSubmitForm}
+            destroy={this.deleteEntry}
+            toggleEdit = {this.toggleEdit}
+            onUpdate = {this.onUpdateForm}
+            />
 
-        change= {this.handleChange}
-        onSubmit= {this.onSubmitForm}
-        destroy= {this.deleteEntry}
-        toggleEdit= {this.toggleEdit}
-        onUpdate= {this.onUpdateForm}
-        />
+            <Work 
+            form= {this.state.work_form}
+            entries= {this.state.work}
 
-        <h2>Skills</h2>
-        <Skills
-        form = {this.state.skills_form}
-        entries= {this.state.skills}
+            change= {this.handleChange}
+            onSubmit= {this.onSubmitForm}
+            destroy= {this.deleteEntry}
+            toggleEdit= {this.toggleEdit}
+            onUpdate= {this.onUpdateForm}
+            />
 
-        change= {this.handleChange}
-        onSubmit= {this.onSubmitForm}
-        destroy= {this.deleteEntry}
-        />
-      </div>
+            <Skills
+            form = {this.state.skills_form}
+            entries= {this.state.skills}
+
+            change= {this.handleChange}
+            onSubmit= {this.onSubmitForm}
+            destroy= {this.deleteEntry}
+            />
+
+            
+          </div>
+          
+          <div id="template-container">
+            <button onClick={this.renderPreview}>Update Preview</button>
+            <div id="template">
+            </div>
+          </div>    
+        </div>
+      </div>  
     );
   }
 

@@ -20,7 +20,7 @@ class Work extends Component {
         };
 
         return(
-            <div>
+            <div className="section">
                 <form id="work-form" onSubmit={formFunction}>
                     <label htmlFor="company">Company Name: </label>
                     <input
@@ -41,7 +41,7 @@ class Work extends Component {
                     /> 
 
                     <label htmlFor="tasks">Tasks: </label>
-                    <input
+                    <textarea
                     onChange={change}
                     value={form.tasks || ""}
                     type="text"
@@ -60,19 +60,22 @@ class Work extends Component {
 
                     <button type="submit">{buttonName}</button>
                 </form>
-                {entries.map((entry) => {
-                    
-                    return (
-                    <div key={entry.id}>
-                        <p>{entry.company}</p>
-                        <p>{entry.position}</p>
-                        <p>{entry.tasks}</p>
-                        <p>{entry.dateOfWork}</p>
-                        <p>{entry.id}</p>
-                        <button onClick={() => toggleEdit(entry, "work")}>Edit</button>
-                        <button onClick={() => destroy(entry.id, "work")}>Delete</button>
-                    </div>)
-                })}
+                <div className="entries">
+                    <h2>Work</h2>
+                    {entries.map((entry) => {
+                        
+                        return (
+                        <div key={entry.id} className="item">
+                            <p>{entry.company}</p>
+                            <p>{entry.position}</p>
+                            <p>{entry.tasks}</p>
+                            <p>{entry.dateOfWork}</p>
+
+                            <button onClick={() => toggleEdit(entry, "work")}>Edit</button>
+                            <button onClick={() => destroy(entry.id, "work")}>Delete</button>
+                        </div>)
+                    })}
+                </div>
             </div>
         );
     }

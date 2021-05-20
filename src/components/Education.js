@@ -20,7 +20,7 @@ class Education extends Component {
         };
 
         return(
-            <div>
+            <div className="section">
 
                 <form id="education-form" onSubmit={formFunction}>
                     <label htmlFor="institution">Institution: </label>
@@ -42,7 +42,7 @@ class Education extends Component {
                     /> 
 
                     <label htmlFor="description">Description: </label>
-                    <input
+                    <textarea
                     onChange={change}
                     value={form.description || ""}
                     type="text"
@@ -70,19 +70,24 @@ class Education extends Component {
 
                     <button type="submit">{buttonName}</button>
                 </form>
-                {entries.map((entry) => {
-                    return (
-                    <div key={entry.id}>
-                        <p>{entry.institution}</p>
-                        <p>{entry.title}</p>
-                        <p>{entry.description}</p>
-                        <p>{entry.date}</p>
-                        <p>{entry.grade}</p>
-                        <p>{entry.id}</p>
-                        <button onClick={() => toggleEdit(entry, "education")}>Edit</button>
-                        <button onClick={() => destroy(entry.id, "education")}>Delete</button>
-                    </div>)
-                })}
+
+                <div className="entries">
+                    <h2>Education</h2>
+                    {entries.map((entry) => {
+                        return (
+                        <div key={entry.id} className="item">
+                            <p>{entry.institution}</p>
+                            <p>{entry.title}</p>
+                            <p>{entry.description}</p>
+                            <p>{entry.date}</p>
+                            <p>{entry.grade}</p>
+                            
+                            <button onClick={() => toggleEdit(entry, "education")}>Edit</button>
+                            <button onClick={() => destroy(entry.id, "education")}>Delete</button>
+                        </div>)
+                    })}
+                </div>
+                
             </div>
 
             

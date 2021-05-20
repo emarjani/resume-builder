@@ -10,31 +10,36 @@ class Skills extends Component {
         const { form, entries, change, onSubmit, destroy } = this.props;
 
         return(
-            <div id="skills">
+            <div className="section">
                 <form id="skills-form" onSubmit={onSubmit}>
                     <label htmlFor="skill">Skill: </label>
                     <input
-                    onChange={change}
-                    value={form.skill}
-                    type="text"
-                    id="skill"
-                    name="skills_form"
-                    /> 
-                    <button type="submit">Submit</button>
+                        onChange={change}
+                        value={form.skill}
+                        type="text"
+                        id="skill"
+                        name="skills_form"
+                        /> 
+                    <button type="submit">Create</button>
                 </form>
 
-                <ul>
-                    {entries.map((entry) => {
-                        return(
-                            <li id={entry.key}>
-                                <p>{entry.skill}</p>
-                                <button onClick={() => destroy(entry.id, "skills")}>
-                                    Delete
-                                </button>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <div className="entries">
+                    <h2>Skills</h2>
+                    <div className="skills">
+                        {entries.map((entry) => {
+                            return(
+                                <li id={entry.id} className="item">
+                                    
+                                    <p>{entry.skill}</p>
+                                    <button onClick={() => destroy(entry.id, "skills")}>
+                                        Delete
+                                    </button>
+
+                                </li>
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
             
         )    

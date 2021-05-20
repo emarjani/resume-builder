@@ -1,86 +1,92 @@
 .App {
   text-align: center;
-  border: 1px green solid;
+  min-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+#content {display: flex;}
 
-/* GENERAL */
-
-#header {
-  border: 2px pink solid;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  /* display: rela */
-}
-/* FIX WIDTHS OF INPUT */
-#name-container {
-  /* position: relative; */
-  /* height: fit-content; */
-  /* border: 1px solid blue; */
-}
 
 #header input {
-  /* position: absolute; */
-  /* width: 100%; */
-  padding: 1px;
-  font-size: 30px;
+  /* padding: 1px; */
+  font-size: 1.5rem;
+  text-align: center;
   border: none;
-  outline: none;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
-#contact-info input {
-  font-size: 20px;
-}
-/* 
-__________________________________________ */
+#contact-info input { font-size: 1rem }
 
-
-
-/* #mask {
-  background-color: rgba(0,0,0,0.1);
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0;
-} */
-
-
-
-
-
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.section {
+  background-color: rgb(162, 212, 166);
+  display: flex;
+  margin: 1rem 0 1rem 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.section h2 { color: rgb(65, 94, 67) }
+
+.section .entries { flex-grow: 3 }
+
+
+.section .skills {
+  display: grid;
+  grid-template: auto / 1fr 1fr;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li p { margin: 0 }
+
+
+.entries .item {
+  background-color: rgb(241, 241, 241);
+  border-radius: 5px;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+form {
+  background-color: rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1rem;
+  height: fit-content;
+  align-self: flex-start;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
-.App-link {
-  color: #61dafb;
+form input, 
+form textarea {
+  margin: 0.5rem 0 0.5rem 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+#template-container {
+  background-color: rgb(39, 39, 39);
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+}
+
+#template-container button {
+  font-size: 1rem;
+  margin: 0.5rem;
+  align-self: center;
+  width: 50%;
+}
+
+#template iframe {
+  min-width: 100%;
+  min-height: 95vh;
+  border: 1px solid;
 }
