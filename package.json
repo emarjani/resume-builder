@@ -1,6 +1,10 @@
 {
   "name": "cv-project",
   "version": "0.1.0",
+  "engines": {
+    "node": "15.0.1",
+    "npm": "7.0.3"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
